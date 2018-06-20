@@ -1,6 +1,7 @@
-package com.framgia.moviedb_13.util;
+package com.framgia.moviedb_13.restapi;
 
 import android.os.AsyncTask;
+import android.util.Log;
 import com.framgia.moviedb_13.data.model.Trailer;
 import com.framgia.moviedb_13.data.source.RequestDataCallBack;
 import java.io.IOException;
@@ -9,11 +10,13 @@ import org.json.JSONException;
 
 public class FetchTrailerFromUrl extends AsyncTask<String, Void, List<Trailer>> {
 
-    private RequestAPI mInstance;
+    private final String LOG_TAG = FetchTrailerFromUrl.class.getSimpleName();
 
-    public RequestAPI getmInstance(){
-        if (mInstance == null){
-            mInstance = new RequestAPI();
+    private RequestApi mInstance;
+
+    public RequestApi getInstance() {
+        if (mInstance == null) {
+            mInstance = new RequestApi();
         }
         return mInstance;
     }
@@ -26,23 +29,25 @@ public class FetchTrailerFromUrl extends AsyncTask<String, Void, List<Trailer>> 
 
     @Override
     protected List<Trailer> doInBackground(String... strings) {
-        try{
+        try {
             return mInstance.parseJsonToTrailer(mInstance.getJsonStringFromUrl(strings[0]));
-        } catch (JSONException e) {
-            e.printStackTrace();
         } catch (IOException e) {
+            Log.e(LOG_TAG, "Error ", e);
+        } catch (JSONException e) {
+            Log.e(LOG_TAG, e.getMessage(), e);
             e.printStackTrace();
-        } return null;
+        }
+        return null;
     }
 
     @Override
     protected void onPostExecute(List<Trailer> trailers) {
-        if(mCallBack == null) {
+        if (mCallBack == null) {
             return;
         }
-        if(trailers == null || trailers.size() == 0){
+        if (trailers == null || trailers.size() == 0) {
             mCallBack.onFail();
-        }else {
+        } else {
             mCallBack.onSuccess(trailers);
         }
     }

@@ -1,9 +1,11 @@
 package com.framgia.moviedb_13.util;
 
+import android.support.annotation.IntDef;
 import android.support.annotation.StringDef;
 import com.framgia.moviedb_13.BuildConfig;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.lang.reflect.Type;
 
 import static com.framgia.moviedb_13.util.Constant.TypeUrl.API_URL_GENRES;
 import static com.framgia.moviedb_13.util.Constant.TypeUrl.API_URL_MOVIE_DETAIL;
@@ -17,13 +19,14 @@ public class Constant {
     private static final String API_KEY = "api_key=" + BuildConfig.API_KEY;
     public static final int URL_REQUEST_TIMEOUT = 10000;
     public static final int URL_CONNECT_TIMEOUT = 15000;
+    public static final String API_URL_LANGUAGE = "en-US";
 
     @StringDef({
             API_URL_MOVIE_POPULAR, API_URL_MOVIE_NOW_PLAYING, API_URL_MOVIE_UPCOMING,
-            API_URL_MOVIE_TOP_RATED, API_URL_MOVIE_GENRE,API_URL_MOVIE_DETAIL
+            API_URL_MOVIE_TOP_RATED, API_URL_MOVIE_GENRE, API_URL_MOVIE_DETAIL
     })
     @Retention(RetentionPolicy.SOURCE)
-    public @interface TypeUrl{
+    public @interface TypeUrl {
         String API_URL_MOVIE_POPULAR = "movie/popular";
         String API_URL_MOVIE_NOW_PLAYING = "movie/now_playing";
         String API_URL_MOVIE_UPCOMING = "movie/upcoming";
@@ -36,8 +39,10 @@ public class Constant {
     public static class RequestUrl {
         public static final String API_REQUEST_METHOD = "GET";
         private static final String API_URL = "https://api.themoviedb.org/3/";
-        public static final String API_URL_REQUEST = API_URL + "%s?" + API_KEY + "&language=%s&page=%s";
+        public static final String API_URL_REQUEST =
+                API_URL + "%s?" + API_KEY + "&language=%s&page=%s";
         public static final String API_GENRES_REQUEST = API_URL + API_URL_GENRES + API_KEY;
+        public static final String API_IMAGE_URL = "https://image.tmdb.org/t/p/w500/%s";
     }
 
     public static class ApiResultKey {
@@ -58,5 +63,16 @@ public class Constant {
         public static final String API_TRAILER_ID = "id";
         public static final String API_TRAILER_KEY = "key";
         public static final String API_TRAILER_NAME = "name";
+    }
+
+    @IntDef({
+            TypeMovie.POPULAR_MOVIE, TypeMovie.NOW_PLAYING_MOVIE, TypeMovie.UP_COMING_MOVIE,
+            TypeMovie.TOP_RATE_MOVIE
+    })
+    public @interface TypeMovie {
+        int POPULAR_MOVIE = 1;
+        int NOW_PLAYING_MOVIE = 2;
+        int UP_COMING_MOVIE = 3;
+        int TOP_RATE_MOVIE = 4;
     }
 }

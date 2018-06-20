@@ -1,6 +1,7 @@
-package com.framgia.moviedb_13.util;
+package com.framgia.moviedb_13.restapi;
 
 import android.os.AsyncTask;
+import android.util.Log;
 import com.framgia.moviedb_13.data.model.Movie;
 import com.framgia.moviedb_13.data.source.RequestDataCallBack;
 import java.io.IOException;
@@ -9,11 +10,13 @@ import org.json.JSONException;
 
 public class FetchMovieFromUrl extends AsyncTask<String, Void, List<Movie>> {
 
-    private RequestAPI mInstance;
+    private final String LOG_TAG = FetchMovieFromUrl.class.getSimpleName();
 
-    public RequestAPI getmInstance(){
-        if(mInstance == null){
-            mInstance = new RequestAPI();
+    private RequestApi mInstance;
+
+    public RequestApi getInstance() {
+        if (mInstance == null) {
+            mInstance = new RequestApi();
         }
         return mInstance;
     }
@@ -27,10 +30,11 @@ public class FetchMovieFromUrl extends AsyncTask<String, Void, List<Movie>> {
     @Override
     protected List<Movie> doInBackground(String... strings) {
         try {
-            return mInstance.parseJsonToMovie(mInstance.getJsonStringFromUrl(strings[0]));
-        } catch (JSONException e) {
-            e.printStackTrace();
+            return getInstance().parseJsonToMovie(getInstance().getJsonStringFromUrl(strings[0]));
         } catch (IOException e) {
+            Log.e(LOG_TAG, "Error ", e);
+        } catch (JSONException e) {
+            Log.e(LOG_TAG, e.getMessage(), e);
             e.printStackTrace();
         }
         return null;
@@ -38,7 +42,7 @@ public class FetchMovieFromUrl extends AsyncTask<String, Void, List<Movie>> {
 
     @Override
     protected void onPostExecute(List<Movie> movies) {
-        if (mCallBack == null){
+        if (mCallBack == null) {
             return;
         }
         if (movies == null || movies.size() == 0) {

@@ -5,18 +5,19 @@ import com.framgia.moviedb_13.data.source.RequestDataCallBack;
 import com.framgia.moviedb_13.data.source.remote.MovieRemoteDataSource;
 
 public class MovieRepository implements RemoteMovieSource {
-    private MovieRepository mInstance;
+    private static MovieRepository sInstance;
     private MovieRemoteDataSource mMovieRemoteDataSource;
 
-    public MovieRepository(MovieRemoteDataSource movieRemoteDataSource) {
+    private MovieRepository(MovieRemoteDataSource movieRemoteDataSource) {
         mMovieRemoteDataSource = movieRemoteDataSource;
     }
 
-    public MovieRepository getInstance(MovieRemoteDataSource movieRemoteDataSource) {
-        if (mInstance == null) {
-            mInstance = new MovieRepository(movieRemoteDataSource);
+    public static synchronized MovieRepository getInstance(
+            MovieRemoteDataSource movieRemoteDataSource) {
+        if (sInstance == null) {
+            sInstance = new MovieRepository(movieRemoteDataSource);
         }
-        return mInstance;
+        return sInstance;
     }
 
     @Override

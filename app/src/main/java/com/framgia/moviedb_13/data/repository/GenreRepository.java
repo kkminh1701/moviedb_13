@@ -5,18 +5,19 @@ import com.framgia.moviedb_13.data.source.RequestDataCallBack;
 import com.framgia.moviedb_13.data.source.remote.GenreRemoteDataSource;
 
 public class GenreRepository implements RemoteGenreSource {
-    private GenreRepository mInstance;
+    private static GenreRepository sInstance;
     private GenreRemoteDataSource mGenreRemoteDataSource;
 
-    public GenreRepository(GenreRemoteDataSource genreRemoteDataSource) {
+    private GenreRepository(GenreRemoteDataSource genreRemoteDataSource) {
         mGenreRemoteDataSource = genreRemoteDataSource;
     }
 
-    public GenreRepository getsInstance(GenreRemoteDataSource genreRemoteDataSource) {
-        if (mInstance == null) {
-            mInstance = new GenreRepository(genreRemoteDataSource);
+    public static synchronized GenreRepository getsInstance(
+            GenreRemoteDataSource genreRemoteDataSource) {
+        if (sInstance == null) {
+            sInstance = new GenreRepository(genreRemoteDataSource);
         }
-        return mInstance;
+        return sInstance;
     }
 
     @Override

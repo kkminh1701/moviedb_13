@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Movie</string>
+    <string name="title_popular">Most Popular Movies</string>
+    <string name="title_now_playing">Now Playing</string>
+    <string name="title_upcoming">Upcoming</string>
+    <string name="title_top_rate">Top Rate</string>
 </resources>

@@ -3,12 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/color_black"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/color_black"
+    >
 
     <TextView
-        android:id="@+id/text_recycler_title"
+        android:id="@+id/text_title_recycler_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_12"
@@ -18,25 +19,28 @@
         android:textSize="@dimen/sp_15"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
     <ProgressBar
-        android:id="@+id/progressbar_recycler"
+        android:id="@+id/progressbar_recycler_view"
         android:layout_width="@dimen/dp_15"
         android:layout_height="@dimen/dp_15"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@id/text_recycler_title"
-        app:layout_constraintTop_toTopOf="@id/text_recycler_title"
-        app:layout_constraintLeft_toRightOf="@id/text_recycler_title"/>
+        app:layout_constraintBottom_toBottomOf="@id/text_title_recycler_view"
+        app:layout_constraintLeft_toRightOf="@id/text_title_recycler_view"
+        app:layout_constraintTop_toTopOf="@id/text_title_recycler_view"
+        />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_movies"
+        android:id="@+id/recycler_view_movies"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:scrollbars="horizontal"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-        app:layout_constraintStart_toStartOf="@+id/text_recycler_title"
-        app:layout_constraintTop_toBottomOf="@+id/text_recycler_title"/>
+        app:layout_constraintStart_toStartOf="@+id/text_title_recycler_view"
+        app:layout_constraintTop_toBottomOf="@+id/text_title_recycler_view"
+        />
 
 </android.support.constraint.ConstraintLayout>

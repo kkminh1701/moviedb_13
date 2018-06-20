@@ -3,19 +3,19 @@ package com.framgia.moviedb_13.data.source.remote;
 import com.framgia.moviedb_13.data.source.RemoteGenreSource;
 import com.framgia.moviedb_13.data.source.RequestDataCallBack;
 import com.framgia.moviedb_13.util.Constant;
-import com.framgia.moviedb_13.util.FetchGenreFromUrl;
+import com.framgia.moviedb_13.restapi.FetchGenreFromUrl;
 
 public class GenreRemoteDataSource implements RemoteGenreSource {
-    private GenreRemoteDataSource mInstance;
+    private static GenreRemoteDataSource sInstance;
 
-    public GenreRemoteDataSource() {
+    private GenreRemoteDataSource() {
     }
 
-    public GenreRemoteDataSource getInstance() {
-        if (mInstance == null) {
-            mInstance = new GenreRemoteDataSource();
+    public static GenreRemoteDataSource getInstance() {
+        if (sInstance == null) {
+            sInstance = new GenreRemoteDataSource();
         }
-        return mInstance;
+        return sInstance;
     }
 
     @Override
